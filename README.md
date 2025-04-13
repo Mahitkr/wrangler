@@ -242,3 +242,26 @@ This project enhances the **CDAP Wrangler Core** library by introducing native s
 ### Purpose
 
 This enhancement lays the groundwork for implementing new Wrangler directives that can natively interpret byte sizes and durations, significantly simplifying recipe development for data transformations involving storage or time-related fields.
+
+## 2. CDAP Wrangler - API Updates for Byte Size & Time Duration
+
+### Overview
+
+This update to the **CDAP Wrangler API** module introduces Java classes to represent byte size and time duration tokens, enhancing the functionality to parse and handle these units natively within Wrangler directives. These changes provide cleaner API support for working with byte sizes (e.g., `10KB`, `2MB`) and time durations (e.g., `500ms`, `5s`), enabling users to easily manipulate these values in a more standardized way.
+
+### Key Features
+
+- **New Java Classes**:  
+  - Created two new classes: `ByteSize.java` and `TimeDuration.java`, which extend the `Token` class.
+  - Both classes are designed to parse their respective token strings (e.g., `"10KB"`, `"150ms"`) in their constructors.
+  
+- **Methods for Conversion**:  
+  - Added methods like `getBytes()` for `ByteSize` to retrieve the value in a canonical unit (e.g., bytes for byte sizes).
+
+- **API Enhancements**:  
+  - Updated the token types to include `BYTE_SIZE` and `TIME_DURATION` as valid types.
+  - Enhanced the usage definition and token definition to properly support these new token types as arguments in directives.
+
+### Purpose
+
+This API update provides the underlying support for parsing and working with byte sizes and time durations directly within Wrangler recipes, making it easier for users to perform operations on data fields involving storage or time-related units without additional manual conversion.
