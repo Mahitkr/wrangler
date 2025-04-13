@@ -216,3 +216,29 @@ Cask is a trademark of Cask Data, Inc. All rights reserved.
 
 Apache, Apache HBase, and HBase are trademarks of The Apache Software Foundation. Used with
 permission. No endorsement by The Apache Software Foundation is implied by the use of these marks.
+
+# Asignment Updates:
+
+## 1. CDAP Wrangler - Byte Size & Time Duration Support
+
+### Overview
+
+This project enhances the **CDAP Wrangler Core** library by introducing native support for parsing and handling byte size and time duration units in Wrangler directives. Previously, users had to manually convert units like kilobytes (KB), megabytes (MB), milliseconds (ms), and seconds (s) using multiple steps. This enhancement simplifies such operations and improves the usability of Wrangler recipes.
+
+### Key Features
+
+- **Grammar Extension**:  
+  Updated the ANTLR grammar (`Directives.g4`) to recognize and tokenize:
+  - **Byte Size units** (e.g., `10KB`, `2MB`)
+  - **Time Duration units** (e.g., `500ms`, `5s`)
+
+- **New Lexer and Parser Rules**:  
+  - Added lexer rules: `BYTE_SIZE`, `TIME_DURATION`, along with helper fragments (`BYTE_UNIT`, `TIME_UNIT`)
+  - Extended relevant parser rules or created new ones (`byteSizeArg`, `timeDurationArg`) to support these tokens as directive arguments
+
+- **ANTLR Code Generation**:  
+  - Regenerated the Java parser and lexer code using Maven (`mvn compile`) to reflect grammar updates
+
+### Purpose
+
+This enhancement lays the groundwork for implementing new Wrangler directives that can natively interpret byte sizes and durations, significantly simplifying recipe development for data transformations involving storage or time-related fields.

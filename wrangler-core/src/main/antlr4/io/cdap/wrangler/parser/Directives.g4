@@ -140,7 +140,12 @@ numberRange
  ;
 
 value
- : String | Number | Column | Bool
+ : String
+ | Number
+ | Column
+ | Bool
+ | BYTE_SIZE
+ | TIME_DURATION
  ;
 
 ecommand
@@ -257,6 +262,30 @@ Number
  : Int ('.' Digit*)?
  ;
 
+BYTE_SIZE
+ : Number BYTE_UNIT
+ ;
+
+TIME_DURATION
+ : Number TIME_UNIT
+ ;
+
+fragment BYTE_UNIT
+ : 'B'
+ | 'KB'
+ | 'MB'
+ | 'GB'
+ | 'TB'
+ ;
+
+fragment TIME_UNIT
+ : 'ms'
+ | 's'
+ | 'm'
+ | 'h'
+ | 'd'
+ ;
+
 Identifier
  : [a-zA-Z_\-] [a-zA-Z_0-9\-]*
  ;
@@ -293,7 +322,7 @@ UnicodeEscape
    ;
 
 fragment
-   HexDigit : ('0'..'9'|'a'..'f'|'A'..'F') ;
+HexDigit : ('0'..'9'|'a'..'f'|'A'..'F') ;
 
 Comment
  : ('//' ~[\r\n]* | '/*' .*? '*/' | '--' ~[\r\n]* ) -> skip
@@ -311,3 +340,8 @@ fragment Int
 fragment Digit
  : [0-9]
  ;
+byteSizeArg : BYTE_SIZE;
+timeDurationArg : TIME_DURATION;
+
+ByteSizeArg: [0-9]+ 'MB' | [0-9]+ 'KB' | [0-9]+ 'GB';
+TimeDurationArg: [0-9]+ 'h' | [0-9]+ 'm' | [0-9]+ 's';
